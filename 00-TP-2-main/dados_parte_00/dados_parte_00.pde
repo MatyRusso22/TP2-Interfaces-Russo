@@ -48,9 +48,15 @@ void setup(){
 // se deben dibujar líneas verticales y líneas horizontales
 void dibujarGrilla(int espacio){
   stroke(96,96,0);
-  // *** COMPLETAR ACÁ *** 
-  // -- tú código para armar la grilla
-  // *** FIN ***
+   // Dibuja las líneas verticales
+  for (int x = 0; x <= w; x += espacio) {
+    line(x, 0, x, h);
+  }
+  
+  // Dibuja las líneas horizontales
+  for (int y = 0; y <= h; y += espacio) {
+    line(0, y, w, y);
+  }
 }
 
 void terreno3D(){
@@ -94,19 +100,11 @@ void draw(){
   background(0);
     
   if (grillaOn) {
-    // *** COMPLETAR ACÁ *** 
-    // -- acá es necesario solo agregar una TRASLACIÓN para dibujar la grilla en 
-    // el espacio correcto
-    // es decir que tu código tienen que ser
-    // translate(x, y, z);
-    // reemplazando obviamente x, y , z por los valores adecuados
-    // tener en cuenta la posición del cubo
-    // ya que buscamos que la grilla lo corte al medio
-    // *** FIN ***
-    
+    translate(0, -50, 150);
     dibujarGrilla(20);
-    translate(0,50,-150);
+    translate(0, 50, -150);
   }
+
 
   // dibuja el terreno
   terreno3D();
@@ -119,53 +117,41 @@ void draw(){
   
   if (keyPressed) {
     if (key == 'W' || key == 'w') {
-      // *** COMPLETAR ACÁ ***
-      // Si presionamos la tecla W rotaremos el cubo en el eje X
-      // tener en cuenta que cada vez que se presiona la tecla se incrementará 
-      // el ángulo de rotación "rotaX" considerando además la "velocidadRotacion"
-      // rotaX y velocidadRotacion son variables ya definidas
-      // *** FIN ***
+      // Rotar el cubo en el eje X en sentido positivo
+      rotaX += velocidadRotacion;
     }
     if (key == 'S' || key == 's') {
-      // *** COMPLETAR ACÁ ***
-      // Si presionamos la tecla S rotaremos el cubo en el eje X en sentido contrario a la tecla W
-      // *** FIN ***
-     }
+      // Rotar el cubo en el eje X en sentido negativo
+      rotaX -= velocidadRotacion;
+    }
     if (key == 'A' || key == 'a') {
-      // *** COMPLETAR ACÁ ***
-      // Si presionamos la tecla A rotaremos el cubo en el eje Y 
-      // *** FIN ***
-     }
-     if (key == 'D' || key == 'd') {
-      // *** COMPLETAR ACÁ ***
-      // Si presionamos la tecla D rotaremos el cubo en el eje Y en sentido contrario a la tecla A
-      // *** FIN ***
-     }
-     if (key == 'Q' || key == 'q') {
-      // *** COMPLETAR ACÁ ***
-      // Si presionamos la tecla Q rotaremos el cubo en el eje Z 
-      // *** FIN ***
-     }
-     if (key == 'E' || key == 'e') {
-      // *** COMPLETAR ACÁ ***
-      // Si presionamos la tecla E rotaremos el cubo en el eje Z en sentido contrario a la tecla W
-      // *** FIN ***
-     }
+      // Rotar el cubo en el eje Y en sentido positivo
+      rotaY += velocidadRotacion;
+    }
+    if (key == 'D' || key == 'd') {
+      // Rotar el cubo en el eje Y en sentido negativo
+      rotaY -= velocidadRotacion;
+    }
+    if (key == 'Q' || key == 'q') {
+      // Rotar el cubo en el eje Z en sentido positivo
+      rotaZ += velocidadRotacion;
+    }
+    if (key == 'E' || key == 'e') {
+      // Rotar el cubo en el eje Z en sentido negativo
+      rotaZ -= velocidadRotacion;
+    }
   }
   
-  // *** COMPLETAR ACÁ ***
-  // Acá hay que aplicar las rotaciones en función de los ejes datos por las variables que guardan los ángulos
-  // OJO con el orden de rotación
-  // *** FIN ***
- 
+  // Aplicar las rotaciones en función de los ángulos
+  rotateX(radians(rotaX));
+  rotateY(radians(rotaY));
+  rotateZ(radians(rotaZ));
   
-  stroke(0,255,0);
-  // dibuja una línea guía
+  stroke(0, 255, 0);
   line(0, -100, 0, 0, 100, 0);
   
   scale(10);
   shape(model);
-  
 }
 
 void keyReleased(){
